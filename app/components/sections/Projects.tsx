@@ -1,20 +1,30 @@
+import GithubIcon from "../icons/socials/GithubIcon";
+import Button from "../Button";
 import SectionHeading from "../SectionHeading";
 import Text from "../Text";
 
 interface Project {
   title: string;
   description: string;
-  href: string;
-  linkLabel?: string;
+  projectUrl: string;
+  gitHubUrl: string;
 }
 
-const PERSONAL_PROJECTS: Project[] = [];
+const PERSONAL_PROJECTS: Project[] = [
+  {
+    title: "Portfolio",
+    description:
+      "A self-built portfolio to showcase my work as a software engineer. It highlights my skills, projects, and provides contact details for potential collaborations or inquiries.",
+    projectUrl: "https://hirojanai.dev",
+    gitHubUrl: "https://github.com/hirojanai/portfolio",
+  },
+];
 
 const Projects: React.FC = () => {
   return (
     <section
       id="projects"
-      className="min-h-fit px-4 py-16 sm:px-6 sm:py-20 md:px-8 md:py-24"
+      className="min-h-[50vh] px-4 py-16 sm:px-6 sm:py-20 md:px-8 md:py-24"
       aria-label="Projects"
       tabIndex={-1}
     >
@@ -34,7 +44,7 @@ const Projects: React.FC = () => {
           ) : (
             <ul className="grid grid-cols-1 gap-y-5" role="list">
               {PERSONAL_PROJECTS.map((project) => {
-                const isExternal = project?.href?.startsWith("http");
+                const isExternal = project?.projectUrl?.startsWith("http");
                 return (
                   <li key={project?.title}>
                     <article className="rounded-lg border border-slate-700/50 bg-slate-800/30 p-6 transition-colors hover:border-slate-600/60 sm:p-8">
@@ -44,15 +54,37 @@ const Projects: React.FC = () => {
                       <Text variant="caption" className="mt-2" maxWidth={false}>
                         {project?.description}
                       </Text>
-                      <a
-                        href={project?.href}
-                        target={isExternal ? "_blank" : undefined}
-                        rel={isExternal ? "noopener noreferrer" : undefined}
-                        aria-label={`View project: ${project?.title}`}
-                        className="mt-4 inline-block text-sm font-medium text-indigo-400 hover:text-indigo-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
-                      >
-                        {project?.linkLabel ?? "View project →"}
-                      </a>
+                      <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+                        <Button
+                          as="a"
+                          href={project?.projectUrl}
+                          target={isExternal ? "_blank" : undefined}
+                          rel={isExternal ? "noopener noreferrer" : undefined}
+                          aria-label={`View project: ${project?.title}`}
+                          variant="secondary"
+                          className="w-full justify-center py-3 sm:w-auto sm:py-2.5"
+                        >
+                          View project
+                        </Button>
+                        <Button
+                          as="a"
+                          href={project?.gitHubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`View on GitHub: ${project?.title}`}
+                          variant="secondary"
+                          className="w-full justify-center py-3 sm:w-auto sm:py-2.5"
+                          leftIcon={
+                            <GithubIcon
+                              width="18"
+                              height="18"
+                              className="text-slate-400"
+                            />
+                          }
+                        >
+                          View on GitHub
+                        </Button>
+                      </div>
                     </article>
                   </li>
                 );
