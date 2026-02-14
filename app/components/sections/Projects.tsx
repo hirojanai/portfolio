@@ -14,7 +14,7 @@ const Projects: React.FC = () => {
   return (
     <section
       id="projects"
-      className="min-h-screen px-4 py-16 sm:px-6 sm:py-20 md:px-8 md:py-24"
+      className="min-h-fit px-4 py-16 sm:px-6 sm:py-20 md:px-8 md:py-24"
       aria-label="Projects"
       tabIndex={-1}
     >
